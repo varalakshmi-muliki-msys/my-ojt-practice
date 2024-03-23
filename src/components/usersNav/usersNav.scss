@@ -1,0 +1,13 @@
+.users-nav-container {
+  display: flex;
+  gap: 10px;
+  padding: 20px;
+
+  .active {
+    font-weight: bold;
+    color: green;
+  }
+  .pending {
+    color: red;
+  }
+}

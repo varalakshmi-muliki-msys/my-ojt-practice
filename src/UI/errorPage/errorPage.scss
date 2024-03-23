@@ -1,0 +1,11 @@
+.error-page-wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .error-gif{
+        // height: 300px;
+        width: 300px;
+    }
+}
