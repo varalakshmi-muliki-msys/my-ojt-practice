@@ -8,14 +8,14 @@ import {
 } from "../../common/component-types";
 import { validateForm } from "./helper";
 import { useMyContext1 } from "../../myContext/userFormContext1";
-import "../../App.scss";
-import { InputFiled } from "../../UI/inputfiled/inputfield";
-import { CustomSelect } from "../../UI/select/select";
-import { PortalModal } from "../../UI/portalModal/portalModal";
+import LazySelect from "../../UI/select/lazySelect";
+import LazyPortalModal from "../../UI/portalModal/lazyPortalModal";
 import { v4 as uuidv4 } from "uuid";
 import { Form } from "react-router-dom";
+import LazyInputFiled from "../../UI/inputfiled/lazyInputFiled";
+import "../../App.scss";
 
-export const UserForm = () => {
+const UserForm = () => {
   const { data, updateContextData } = useMyContext1();
   const [showModal, setShowModal] = useState(false);
 
@@ -68,7 +68,7 @@ export const UserForm = () => {
   const handleDuplicateUser = (submissionData: formSubmissionType) => {
     let isDuplicate = false;
     // eslint-disable-next-line array-callback-return
-    data?.map((eachuser: { email: string | undefined }) => {
+    data?.map((eachuser) => {
       if (eachuser.email === submissionData.email) {
         isDuplicate = true;
       }
@@ -194,7 +194,7 @@ export const UserForm = () => {
       >
         <h2 className="form-title">User Details</h2>
 
-        <InputFiled
+        <LazyInputFiled
           labelText="First Name"
           name="firstName"
           onChange={handleChange}
@@ -205,7 +205,7 @@ export const UserForm = () => {
           <div className="error-message">{errors.firstName}</div>
         )}
 
-        <InputFiled
+        <LazyInputFiled
           labelText="Last Name"
           name="lastName"
           onChange={handleChange}
@@ -215,7 +215,7 @@ export const UserForm = () => {
         {errors.lastName && (
           <div className="error-message">{errors.lastName}</div>
         )}
-        <InputFiled
+        <LazyInputFiled
           labelText="Email"
           inputType="email"
           name="email"
@@ -226,7 +226,7 @@ export const UserForm = () => {
         {errors.firstName && (
           <div className="error-message">{errors.email}</div>
         )}
-        <InputFiled
+        <LazyInputFiled
           labelText="Age"
           name="age"
           onChange={handleChange}
@@ -238,7 +238,7 @@ export const UserForm = () => {
         <div className="radio-btns-wrapper">
           <div className="radio-btns-container">
             <span>Are you an Indian?</span>
-            <InputFiled
+            <LazyInputFiled
               inputType="radio"
               labelText=""
               checked={userData.isIndian}
@@ -252,7 +252,7 @@ export const UserForm = () => {
         </div>
 
         {userData?.isIndian && (
-          <CustomSelect
+          <LazySelect
             data={userData}
             onChangefunction={handleStateChangeValue}
             errors={errors}
@@ -276,7 +276,7 @@ export const UserForm = () => {
 
       {showModal && (
         <div className="clipping-container ">
-          <PortalModal
+          <LazyPortalModal
             showModal={showModal}
             setShowModal={setShowModal}
             modalText="User already Exist"
@@ -286,3 +286,5 @@ export const UserForm = () => {
     </div>
   );
 };
+
+export default UserForm;

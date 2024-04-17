@@ -1,40 +1,43 @@
-import React from "react";
-import { NavLink, Outlet } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
+import { Tabs, Tab } from "@mui/material";
 import "./usersNav.scss";
 
-export const UsersNav = () => {
+const UsersNav = () => {
+  const [selectedTab, setSelectedTab] = useState<number>(0);
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setSelectedTab(newValue);
+  };
+
+  const routes = [
+    { path: "/users", label: "Users" },
+    { path: "/users/dataGrid", label: "Data-Grid" },
+    { path: "/users/materilUi", label: "Material-UI" },
+  ];
+
   return (
     <>
-      <div className="users-nav-container">
-        <NavLink
-          end
-          to="/users"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
-          }
-        >
-          Users
-        </NavLink>
-        <NavLink
-          to="/users/dataGrid"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
-          }
-        >
-          Data Grid
-        </NavLink>
-        <NavLink
-          to="/users/materilUi"
-          className={({ isActive, isPending }) =>
-            isPending ? "pending" : isActive ? "active" : ""
-          }
-        >
-          Material UI
-        </NavLink>
-      </div>
-      <div>
-        <Outlet />
-      </div>
+      <Tabs
+        value={selectedTab}
+        onChange={handleTabChange}
+        textColor="inherit"
+        indicatorColor="primary"
+        centered
+        className="users-nav-container"
+      >
+        {routes.map((route, index) => (
+          <Tab
+            label={route.label}
+            value={index}
+            component={Link}
+            to={route.path}
+          />
+        ))}
+      </Tabs>
+      <Outlet />
     </>
   );
 };
+
+export default UsersNav;

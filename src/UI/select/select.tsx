@@ -2,7 +2,7 @@ import React from "react";
 import "./select-style.scss";
 import { selectTypes } from "../../common/component-types";
 
-export const CustomSelect = ({
+const CustomSelect = ({
   data,
   onChangefunction,
   errors,
@@ -31,3 +31,5 @@ export const CustomSelect = ({
     </div>
   );
 };
+
+export default CustomSelect;

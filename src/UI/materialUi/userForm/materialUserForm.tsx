@@ -15,7 +15,7 @@ import {
 } from "../../../common/component-types";
 import { v4 as uuidv4 } from "uuid";
 import { useMyContext2 } from "../../../myContext/userFormContext2";
-import { PortalModal } from "../../portalModal/portalModal";
+import LazyPortalModal from "../../portalModal/lazyPortalModal";
 import { MaterialUserTable } from "../usertable/materialUserTable";
 import { validateForm } from "../../../components/forms/helper";
 
@@ -72,7 +72,7 @@ export const MaterialUserForm = () => {
   const handleDuplicateUser = (submissionData: formSubmissionType) => {
     let isDuplicate = false;
     // eslint-disable-next-line array-callback-return
-    data?.map((eachuser: { email: string | undefined }) => {
+    data?.map((eachuser) => {
       if (eachuser.email === submissionData.email) {
         isDuplicate = true;
       }
@@ -218,109 +218,110 @@ export const MaterialUserForm = () => {
   };
 
   return (
-    <div className="material-form-wrapper">
-      <form className="material-ui-form-container" onSubmit={handleSubmit}>
-        <h2 className="form-title">User Details</h2>
-        <MaterialInputField
-          labelText="First Name"
-          // id="firstName"
-          type="text"
-          handleChange={handleInputChange}
-          handleErrors={handleErrors}
-          helperText={errors.firstName}
-          inputName="firstName"
-          error={enableError.firstName}
-          value={userData.firstName}
-        />
-        <MaterialInputField
-          labelText="Last Name"
-          id="lastName"
-          type="text"
-          handleChange={handleInputChange}
-          handleErrors={handleErrors}
-          helperText={errors.lastName}
-          inputName="lastName"
-          error={enableError.lastName}
-          value={userData.lastName}
-        />
-        <MaterialInputField
-          labelText="Email"
-          id="email"
-          type="email"
-          handleChange={handleInputChange}
-          handleErrors={handleErrors}
-          helperText={errors.email}
-          inputName="email"
-          error={enableError.email}
-          value={userData.email}
-        />
-        <MaterialInputField
-          labelText="Age"
-          id="age"
-          type="number"
-          handleChange={handleInputChange}
-          handleErrors={handleErrors}
-          helperText={errors.age}
-          inputName="age"
-          error={enableError.age}
-          value={userData.age}
-        />
-        <div className="radio-btns-wrapper">
-          <div className="radio-btns-container">
-            <span>Are you an Indian?</span>
-            <Radio
-              checked={userData.isIndian}
-              onChange={handleIndianChange}
-              name="radio-buttons"
-              inputProps={{ "aria-label": "A" }}
-            />
-            <p className="label-yes">Yes</p>
+    <div>
+      <div className="material-form-wrapper">
+        <form className="material-ui-form-container" onSubmit={handleSubmit}>
+          <h2 className="form-title">User Details</h2>
+          <MaterialInputField
+            labelText="First Name"
+            // id="firstName"
+            type="text"
+            handleChange={handleInputChange}
+            handleErrors={handleErrors}
+            helperText={errors.firstName}
+            inputName="firstName"
+            error={enableError.firstName}
+            value={userData.firstName}
+          />
+          <MaterialInputField
+            labelText="Last Name"
+            id="lastName"
+            type="text"
+            handleChange={handleInputChange}
+            handleErrors={handleErrors}
+            helperText={errors.lastName}
+            inputName="lastName"
+            error={enableError.lastName}
+            value={userData.lastName}
+          />
+          <MaterialInputField
+            labelText="Email"
+            id="email"
+            type="email"
+            handleChange={handleInputChange}
+            handleErrors={handleErrors}
+            helperText={errors.email}
+            inputName="email"
+            error={enableError.email}
+            value={userData.email}
+          />
+          <MaterialInputField
+            labelText="Age"
+            id="age"
+            type="number"
+            handleChange={handleInputChange}
+            handleErrors={handleErrors}
+            helperText={errors.age}
+            inputName="age"
+            error={enableError.age}
+            value={userData.age}
+          />
+          <div className="radio-btns-wrapper">
+            <div className="radio-btns-container">
+              <span>Are you an Indian?</span>
+              <Radio
+                checked={userData.isIndian}
+                onChange={handleIndianChange}
+                name="radio-buttons"
+                inputProps={{ "aria-label": "A" }}
+              />
+              <p className="label-yes">Yes</p>
+            </div>
           </div>
-        </div>
-        {userData.isIndian && (
-          <>
-            <InputLabel id="demo-customized-select-label">
-              Select state
-            </InputLabel>
-            <Select
-              labelId="demo-customized-select-label"
-              id="demo-simple-select"
-              defaultValue="Delhi"
-              value={userData.selectedState}
-              // label="State"
-              onChange={handleStateChangeValue}
-            >
-              {userData.statesData.map((state) => (
-                <MenuItem key={state.state_id} value={state.state_name}>
-                  {state.state_name}
-                </MenuItem>
-              ))}
-            </Select>
-          </>
+          {userData.isIndian && (
+            <>
+              <InputLabel id="demo-customized-select-label">
+                Select state
+              </InputLabel>
+              <Select
+                labelId="demo-customized-select-label"
+                id="demo-simple-select"
+                defaultValue="Delhi"
+                value={userData.selectedState}
+                // label="State"
+                onChange={handleStateChangeValue}
+              >
+                {userData.statesData.map((state) => (
+                  <MenuItem key={state.state_id} value={state.state_name}>
+                    {state.state_name}
+                  </MenuItem>
+                ))}
+              </Select>
+            </>
+          )}
+
+          <div className="btn-container">
+            <button className="submit-btn" type="submit">
+              Submit
+            </button>
+            <button type="button" onClick={handleReset} className="reset-btn">
+              Reset
+            </button>
+          </div>
+        </form>
+
+        {showModal && (
+          <div className="clipping-container ">
+            <LazyPortalModal
+              showModal={showModal}
+              setShowModal={setShowModal}
+              modalText="User already Exist"
+            />
+          </div>
         )}
-
-        <div className="btn-container">
-          <button className="submit-btn" type="submit">
-            Submit
-          </button>
-          <button type="button" onClick={handleReset} className="reset-btn">
-            Reset
-          </button>
-        </div>
-      </form>
-
+      </div>
       {data?.length > 0 && (
         <MaterialUserTable formSubmissionData={formSubmissionData} />
-      )}
-
-      {showModal && (
-        <div className="clipping-container ">
-          <PortalModal
-            showModal={showModal}
-            setShowModal={setShowModal}
-            modalText="User already Exist"
-          />
-        </div>
       )}
     </div>
   );

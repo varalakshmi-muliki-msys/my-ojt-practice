@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import "./portalModal.scss";
 import { portalModalTypes } from "../../common/component-types";
 
-export const PortalModal = ({
+const PortalModal = ({
   showModal,
   setShowModal,
   modalText,
@@ -16,7 +16,12 @@ export const PortalModal = ({
           <div className="modal-container">
             <div className="modal-content">
               <p>{modalText}</p>
-              <button className="close-button" onClick={() => setShowModal(false)}>OK</button>
+              <button
+                className="close-button"
+                onClick={() => setShowModal(false)}
+              >
+                OK
+              </button>
             </div>
           </div>,
           document.body
@@ -29,3 +34,5 @@ PortalModal.propTypes = {
   setShowModal: PropTypes.bool,
   modaltext: PropTypes.string,
 };
+
+export default PortalModal;

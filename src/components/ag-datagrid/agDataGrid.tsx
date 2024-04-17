@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, ComponentType } from "react";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import { AgGridReact } from "ag-grid-react";
@@ -6,10 +6,10 @@ import { useSelector } from "react-redux";
 import { ReduxStoreState, TodoColumnData } from "../../common/component-types";
 import { getTodoData } from "../../redux/slice/todoSlice";
 import { useAppDispatch } from "../../redux/store";
+import TableSkeletonLoader from "../TableSkeleton/tableSkeleton";
 import "./ag-dataGrid.scss";
-import { TableSkeletonLoader } from "../TableSkeleton/tableSkeleton";
 
-export const AgDataGrid = () => {
+const AgDataGrid = () => {
   const dispatch = useAppDispatch();
 
   const listOfTodos = useSelector(
@@ -20,15 +20,17 @@ export const AgDataGrid = () => {
     dispatch(getTodoData());
   }, [dispatch]);
 
-  console.log("listOfTodos", listOfTodos);
+  // console.log("listOfTodos", listOfTodos);
   const columns: TodoColumnData[] = [
     {
       headerName: "ID",
       field: "id",
+      width: 100,
     },
     {
       headerName: "User Id",
       field: "userId",
+      width: 100,
     },
     {
       headerName: "Task",
@@ -42,8 +44,8 @@ export const AgDataGrid = () => {
   return (
     <div className="ag-data-grid-wrapper">
       <div className="ag-theme-quartz ag-data-inner-wrapper">
-        {!listOfTodos.length  ? (
-          <TableSkeletonLoader rowsNum={10} />
+        {!listOfTodos.length ? (
+          <TableSkeletonLoader />
         ) : (
           <AgGridReact
             rowData={listOfTodos}
@@ -58,3 +60,5 @@ export const AgDataGrid = () => {
     </div>
   );
 };
+
+export default AgDataGrid;

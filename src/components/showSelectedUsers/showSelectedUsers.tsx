@@ -9,7 +9,7 @@ import {
 } from "../../common/component-types";
 import { Nodata } from "../../UI/nodata/nodata";
 
-export const ShowSelectedUsers = () => {
+const ShowSelectedUsers = () => {
   const selectedUsers: formSubmissionType[] = useSelector(
     (state: ReduxStoreState) => state.users.selectedUsers
   );
@@ -32,7 +32,11 @@ export const ShowSelectedUsers = () => {
 
             {selectedUsers.map((eachUser, i) => (
               <div key={i} className="show-user-container">
-                <img src="https://cdn.iconscout.com/icon/free/png-256/free-user-1556-528036.png"  alt="avatar" className="user-icon"/>
+                <img
+                  src="https://cdn.iconscout.com/icon/free/png-256/free-user-1556-528036.png"
+                  alt="avatar"
+                  className="user-icon"
+                />
                 <ul>
                   <li>{`Name :${eachUser.firstName} ${eachUser.lastName}`}</li>
                   <li>{`Age: ${eachUser.age}`}</li>
@@ -50,3 +54,5 @@ export const ShowSelectedUsers = () => {
     </>
   );
 };
+
+export default ShowSelectedUsers;

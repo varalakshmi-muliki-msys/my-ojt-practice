@@ -2,7 +2,7 @@ import React from "react";
 import { ErrorResponse, useRouteError } from "react-router-dom";
 import "./errorPage.scss";
 
-export const ErrorPage = () => {
+ export const ErrorPage = () => {
   const error = useRouteError() as ErrorResponse;
   console.error(error);
   return (
@@ -18,3 +18,4 @@ export const ErrorPage = () => {
     </div>
   );
 };
+

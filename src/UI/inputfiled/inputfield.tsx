@@ -2,7 +2,7 @@ import React from "react";
 import { inputFiledTypes } from "../../common/component-types";
 import "./inputfiled.scss";
 
-export const InputFiled = ({
+const InputFiled = ({
   labelText = "",
   inputType = "text",
   placeholder = "",
@@ -37,3 +37,4 @@ export const InputFiled = ({
     </div>
   );
 };
+export default InputFiled;

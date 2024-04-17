@@ -142,6 +142,7 @@ export type RootTodoState = {
 export type TodoColumnData = {
   headerName: string;
   field: keyof TodoData;
+  width?: number;
 };
 
 export type ReduxStoreState = {

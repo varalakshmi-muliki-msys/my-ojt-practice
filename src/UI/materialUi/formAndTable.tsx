@@ -1,6 +1,7 @@
 import React from "react";
 import { MaterialUserForm } from "./userForm/materialUserForm";
 
-export const FormAndTable = () => {
+const FormAndTable = () => {
   return <MaterialUserForm />;
 };
+export default FormAndTable;
